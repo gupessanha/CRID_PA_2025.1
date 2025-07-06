@@ -1,0 +1,46 @@
+{
+  "name": "sistema-notas-blockchain",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de notas usando Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "node": "npx hardhat node",
+    "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:testnet": "npx hardhat run scripts/deploy.js --network sepolia",
+    "console": "npx hardhat console",
+    "clean": "npx hardhat clean",
+    "size": "npx hardhat size-contracts",
+    "coverage": "npx hardhat coverage"
+  },
+  "keywords": [
+    "blockchain",
+    "solidity",
+    "smart-contracts",
+    "ethereum",
+    "education",
+    "grades",
+    "academic"
+  ],
+  "author": "CRID - Programação Avançada 2025.1",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/sistema-notas-blockchain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/sistema-notas-blockchain/issues"
+  },
+  "homepage": "https://github.com/username/sistema-notas-blockchain#readme"
+}
