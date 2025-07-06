@@ -57,7 +57,7 @@ contract TesteSistemaNotas {
         }
         
         // Verificar se aluno foi registrado
-        (,uint256 matricula, bool existe) = sistema.alunos(12345);
+        (, uint256 matricula, bool existe) = sistema.alunos(12345);
         if (existe && matricula == 12345) {
             emit TesteExecutado("Verificacao de dados do aluno", true);
         } else {
@@ -78,7 +78,7 @@ contract TesteSistemaNotas {
         }
         
         // Verificar se professor foi registrado
-        (address endereco,, bool existe) = sistema.professores(address(this));
+        (address endereco, bool existe) = sistema.professores(address(this));
         if (existe && endereco == address(this)) {
             emit TesteExecutado("Verificacao de dados do professor", true);
         } else {
