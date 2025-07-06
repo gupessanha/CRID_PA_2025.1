@@ -43,14 +43,14 @@ contract TesteSistemaNotas {
     function testeRegistroAluno() public {
         emit LogTeste("--- Teste: Registro de Aluno ---");
         
-        try sistema.registrarAluno(12345, "João Silva") {
+        try sistema.registrarAluno(12345, "Joao Silva") {
             emit TesteExecutado("Registro de aluno valido", true);
         } catch {
             emit TesteExecutado("Registro de aluno valido", false);
         }
         
         // Teste de aluno duplicado
-        try sistema.registrarAluno(12345, "João Silva Duplicado") {
+        try sistema.registrarAluno(12345, "Joao Silva Duplicado") {
             emit TesteExecutado("Rejeicao de aluno duplicado", false);
         } catch {
             emit TesteExecutado("Rejeicao de aluno duplicado", true);
@@ -272,7 +272,7 @@ contract TesteSistemaNotas {
         
         // Teste de consulta de nome privado
         try sistema.consultarNomePrivadoTeste(12345) returns (string memory nome) {
-            if (keccak256(bytes(nome)) == keccak256(bytes("João Silva"))) {
+            if (keccak256(bytes(nome)) == keccak256(bytes("Joao Silva"))) {
                 emit TesteExecutado("Consulta de nome privado", true);
             } else {
                 emit TesteExecutado("Consulta de nome privado", false);
