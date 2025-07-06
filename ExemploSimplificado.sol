@@ -7,9 +7,11 @@ import "./crid.sol";
  * @title Exemplo Prático Simplificado do Sistema de Notas
  * @dev Demonstra um cenário completo de uso - versão compatível com Remix
  */
+
 contract ExemploSimplificado {
-    SistemaNotas public sistema;
-    
+
+    CRI public sistema;
+     using SafeMath for uint256;
     // Eventos para demonstração
     event ExemploExecutado(string etapa, string descricao);
     event TesteCompleto(string resultado);
