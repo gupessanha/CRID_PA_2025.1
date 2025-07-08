@@ -3,12 +3,10 @@ name: Segurança - Análise de Smart Contracts
 on:
   push:
     branches: [ main, master, develop, test ]
-    paths:
-      - '**.sol'
+    
   pull_request:
     branches: [ main, master ]
-    paths:
-      - '**.sol'
+    
   workflow_dispatch:
 
 jobs:
