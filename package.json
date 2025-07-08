@@ -13,7 +13,7 @@
     "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
     "console": "npx hardhat console",
     "clean": "npx hardhat clean",
-    "size": "npx hardhat size-contracts",
+    "size": "node scripts/check-contract-size.js",
     "coverage": "npx hardhat coverage",
     "lint": "npx solhint '**/*.sol'",
     "lint:fix": "npx solhint --fix '**/*.sol'",
