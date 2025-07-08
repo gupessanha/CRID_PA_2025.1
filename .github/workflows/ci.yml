@@ -1,14 +1,14 @@
-name: CI - Sistema de Notas Smart Contract
+name: CI - Testes do Sistema de Notas
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
 
 jobs:
   test:
-    name: Testes e Verificação do Contrato
+    name: Compilar e Testar
     runs-on: ubuntu-latest
 
     steps:
@@ -24,20 +24,37 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Verificar formatação do código Solidity
-        run: npx prettier --check '**/*.sol'
-        continue-on-error: true
-
       - name: Compilar contratos
-        run: npm run compile
+        run: npx hardhat compile
 
       - name: Executar testes
-        run: npm test
+        run: node scripts/run-tests.js
 
-      - name: Verificar cobertura de código
-        run: npm run coverage
-        continue-on-error: true
+      - name: Verificar tamanho dos contratos
+        run: npx hardhat size-contracts
 
-      - name: Analisar tamanho dos contratos
-        run: npm run size
+      - name: Criar diretório para relatórios
+        run: mkdir -p test-results
+
+      - name: Gerar relatório de testes
+        if: always()
+        run: |
+          echo "# Relatório de Testes" > test-results/test-report.md
+          echo "Data: $(date)" >> test-results/test-report.md
+          echo "Commit: ${{ github.sha }}" >> test-results/test-report.md
+          
+          # Adicionar resultados dos testes, se disponíveis
+          if [ -f "test-results/solidity-test-results.json" ]; then
+            echo "## Resultados dos Testes Solidity" >> test-results/test-report.md
+            echo '```json' >> test-results/test-report.md
+            cat test-results/solidity-test-results.json >> test-results/test-report.md
+            echo '```' >> test-results/test-report.md
+          fi
+
+      - name: Upload relatório de testes
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results/
 
