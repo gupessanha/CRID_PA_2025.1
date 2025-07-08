@@ -3,8 +3,8 @@ name: CD - Deploy Sistema de Notas
 on:
   push:
     #branches: [ main, master, test ]
-    tags:
-      - 'v*'
+    #tags:
+    #  - 'v*'
 
 jobs:
   deploy-testnet:
