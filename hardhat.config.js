@@ -1,7 +1,13 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
-require("hardhat-contract-sizer"); // Adicione esta linha
+
+// Carregue hardhat-contract-sizer de forma condicional
+try {
+  require("hardhat-contract-sizer");
+} catch (error) {
+  console.warn("Plugin hardhat-contract-sizer não está instalado. Alguns recursos podem não funcionar.");
+}
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -14,11 +20,21 @@ module.exports = {
       }
     }
   },
-  contractSizer: {
-    alphaSort: true,
-    runOnCompile: true,
-    disambiguatePaths: false,
-  },
+  // Configurar contractSizer apenas se o plugin estiver disponível
+  ...((() => {
+    try {
+      require.resolve("hardhat-contract-sizer");
+      return {
+        contractSizer: {
+          alphaSort: true,
+          runOnCompile: true,
+          disambiguatePaths: false,
+        }
+      };
+    } catch (e) {
+      return {};
+    }
+  })()),
   networks: {
     localhost: {
       url: "http://127.0.0.1:8545",
