@@ -24,10 +24,6 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      # Instalar explicitamente o plugin
-      - name: Instalar plugin hardhat-contract-sizer
-        run: npm install --save-dev hardhat-contract-sizer
-
       - name: Verificar instalação de dependências
         run: |
           echo "Versão do Hardhat:"
@@ -41,9 +37,9 @@ jobs:
       - name: Executar testes
         run: node scripts/run-tests.js
 
-      # Agora o comando size deve funcionar
+      # Substitua o comando size pelo script personalizado
       - name: Verificar tamanho dos contratos
-        run: npx hardhat size
+        run: node scripts/check-contract-size.js
 
       # Criar o diretório antes de tentar escrever nele
       - name: Criar diretório para relatórios
@@ -61,6 +57,14 @@ jobs:
             echo "## Resultados dos Testes Solidity" >> test-results/test-report.md
             echo '```json' >> test-results/test-report.md
             cat test-results/solidity-test-results.json >> test-results/test-report.md
+            echo '```' >> test-results/test-report.md
+          fi
+          
+          # Adicionar informações sobre tamanho dos contratos
+          if [ -f "test-results/contract-sizes.json" ]; then
+            echo "## Tamanho dos Contratos" >> test-results/test-report.md
+            echo '```json' >> test-results/test-report.md
+            cat test-results/contract-sizes.json >> test-results/test-report.md
             echo '```' >> test-results/test-report.md
           fi
 
