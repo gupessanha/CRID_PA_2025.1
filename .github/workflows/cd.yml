@@ -2,7 +2,7 @@ name: CD - Deploy Sistema de Notas
 
 on:
   push:
-    branches: [ main, master ]
+    #branches: [ main, master, test ]
     tags:
       - 'v*'
 
