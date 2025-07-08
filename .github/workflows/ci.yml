@@ -24,6 +24,10 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      # Instalar explicitamente o plugin
+      - name: Instalar plugin hardhat-contract-sizer
+        run: npm install --save-dev hardhat-contract-sizer
+
       - name: Verificar instalação de dependências
         run: |
           echo "Versão do Hardhat:"
@@ -37,7 +41,7 @@ jobs:
       - name: Executar testes
         run: node scripts/run-tests.js
 
-      #Comentar temporariamente até resolver o problema
+      # Agora o comando size deve funcionar
       - name: Verificar tamanho dos contratos
         run: npx hardhat size
 
