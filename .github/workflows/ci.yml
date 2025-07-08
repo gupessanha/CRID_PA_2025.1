@@ -40,3 +40,4 @@ jobs:
 
       - name: Analisar tamanho dos contratos
         run: npm run size
+
