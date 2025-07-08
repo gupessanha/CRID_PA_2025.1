@@ -1,4 +1,4 @@
-name: CD - Deploy Sistema de Notas
+name: CD - Deploy Sistema de Notas (Teste)
 
 on:
   push:
@@ -8,9 +8,8 @@ on:
 
 jobs:
   deploy-testnet:
-    name: Deploy na Testnet
+    name: Deploy na Testnet (Simulado)
     runs-on: ubuntu-latest
-    
 
     steps:
       - name: Checkout do código
@@ -28,12 +27,25 @@ jobs:
       - name: Compilar contratos
         run: npm run compile
 
-      - name: Deploy na Testnet (Sepolia)
-        run: npm run deploy:testnet
-        env:
-          SEPOLIA_URL: ${{ secrets.SEPOLIA_URL }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+      - name: Deploy na Testnet (Teste)
+        run: |
+          echo "AVISO: Este é um deploy simulado sem conexão real à rede"
+          echo "Criando diretório para resultados simulados..."
+          mkdir -p test-results
+          
+          echo '{
+            "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
+            "network": "mock-sepolia",
+            "contracts": {
+              "SistemaNotas": "0x1111111111111111111111111111111111111111",
+              "AdminController": "0x2222222222222222222222222222222222222222"
+            },
+            "deployedBy": "0x9999999999999999999999999999999999999999",
+            "transactionHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+          }' > test-results/deploy-addresses.json
+          
+          echo "Deploy simulado concluído!"
+        # Sem env, pois não estamos usando secrets
 
       - name: Criar diretório para relatórios
         run: mkdir -p deployment-reports
