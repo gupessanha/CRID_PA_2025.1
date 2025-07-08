@@ -91,3 +91,7 @@ temp/
 *.un~
 Session.vim
 .netrwhist
+
+#local history files
+deployed-contracts.json
+deployments/

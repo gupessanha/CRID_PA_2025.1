@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "hardhat compile",
-    "test": "hardhat test",
+    "test": "node scripts/run-tests.js",
     "test:solidity": "node scripts/run-tests.js",
     "deploy:testnet": "hardhat run scripts/deploy-testnet.js --network sepolia",
     "verify": "hardhat verify --network sepolia",
@@ -14,7 +14,6 @@
     "console": "npx hardhat console",
     "clean": "npx hardhat clean",
     "size": "node scripts/check-contract-size.js",
-    "coverage": "npx hardhat coverage",
     "lint": "npx solhint '**/*.sol'",
     "lint:fix": "npx solhint --fix '**/*.sol'",
     "format": "npx prettier --write '**/*.{sol,js,json,md}'",
@@ -48,5 +47,8 @@
   "bugs": {
     "url": "https://github.com/username/sistema-notas-blockchain/issues"
   },
-  "homepage": "https://github.com/username/sistema-notas-blockchain#readme"
+  "homepage": "https://github.com/username/sistema-notas-blockchain#readme",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
 }

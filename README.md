@@ -41,10 +41,21 @@ Este projeto implementa um sistema de notas acadêmicas utilizando smart contrac
 
 ```
 CRID_PA_2025.1/
-├── crid.sol                 # Contrato principal do sistema
-├── TesteSistemaNotas.sol    # Contrato de testes
-├── README.md               # Documentação do projeto
-└── MANUAL.md               # Manual de instruções
+├── contracts/
+│   ├── crid.sol                      # Contrato principal do sistema
+│   ├── TesteSistemaNotas.sol         # Contrato de testes
+│   └── ExemploUltraSimplificado.sol  # Exemplo para Remix
+├── scripts/
+│   ├── deploy.js                     # Script de deploy local
+│   ├── deploy-testnet.js             # Script de deploy em testnet
+│   ├── deploy-remix.js               # Script de deploy no Remix
+│   └── check-contract-size.js        # Verificação de tamanho
+├── README.md                         # Documentação do projeto
+├── MANUAL.md                         # Manual de instruções
+├── GUIA-REMIX.md                     # Guia para uso no Remix
+├── RESUMO.md                         # Resumo do sistema
+├── COMANDOS.md                       # Lista de comandos úteis
+└── CI-CD.md                          # Documentação do CI/CD
 ```
 
 ## 🚀 Funcionalidades

@@ -18,19 +18,19 @@ async function main() {
   await testeSistema.deployed();
   console.log("✅ TesteSistemaNotas deployado em:", testeSistema.address);
 
-  // Deploy do exemplo prático
-  console.log("\n📋 Fazendo deploy do contrato ExemploPraticoSistema...");
-  const ExemploPraticoSistema = await ethers.getContractFactory("ExemploPraticoSistema");
-  const exemploSistema = await ExemploPraticoSistema.deploy();
-  await exemploSistema.deployed();
-  console.log("✅ ExemploPraticoSistema deployado em:", exemploSistema.address);
+  // Deploy do exemplo ultra simplificado
+  console.log("\n📋 Fazendo deploy do contrato ExemploUltraSimplificado...");
+  const ExemploUltraSimplificadoFactory = await ethers.getContractFactory("ExemploUltraSimplificado");
+  const ExemploUltraSimplificado = await ExemploUltraSimplificadoFactory.deploy();
+  await ExemploUltraSimplificado.deployed();
+  console.log("✅ ExemploUltraSimplificado deployado em:", ExemploUltraSimplificado.address);
 
   // Informações de deploy
   console.log("\n📄 Resumo do Deploy:");
   console.log("=====================================");
   console.log("SistemaNotas:", sistemaNotas.address);
   console.log("TesteSistemaNotas:", testeSistema.address);
-  console.log("ExemploPraticoSistema:", exemploSistema.address);
+  console.log("ExemploUltraSimplificado:", ExemploUltraSimplificado.address);
   console.log("=====================================");
 
   console.log("\n🎉 Deploy concluído com sucesso!");
@@ -40,7 +40,7 @@ async function main() {
   return {
     sistemaNotas: sistemaNotas.address,
     testeSistema: testeSistema.address,
-    exemploSistema: exemploSistema.address
+    ExemploUltraSimplificado: ExemploUltraSimplificado.address
   };
 }
 

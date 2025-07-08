@@ -9,7 +9,7 @@
 3. Faça upload dos seguintes arquivos:
    - `crid.sol` (contrato principal)
    - `TesteSistemaNotas.sol` (testes)
-   - `ExemploSimplificado.sol` (exemplo compatível com Remix)
+   - `ExemploUltraSimplificado.sol` (exemplo compatível com Remix)
 
 ### 2. ⚙️ Compilação
 
@@ -35,8 +35,8 @@
 - Clique em **"Deploy"**
 - ✅ Pronto para executar testes
 
-#### C. Deploy do ExemploSimplificado  
-- Selecione `ExemploSimplificado`
+#### C. Deploy do ExemploUltraSimplificado  
+- Selecione `ExemploUltraSimplificado`
 - Clique em **"Deploy"**
 - ✅ Pronto para exemplos práticos
 
@@ -50,7 +50,7 @@
 4. Executar "testeCompleto" para cenário real
 ```
 
-#### Usando ExemploSimplificado:
+#### Usando ExemploUltraSimplificado:
 ```
 1. Clicar em "exemploCompleto" 
 2. Verificar logs de sucesso/erro
@@ -132,7 +132,7 @@
 - ✅ Usar valores corretos (nota entre 0-1000)
 
 #### "TypeError" durante deploy:
-- ✅ Usar `ExemploSimplificado.sol` ao invés do original
+- ✅ Usar `ExemploUltraSimplificado.sol` ao invés do original
 - ✅ Verificar se todos os imports estão corretos
 
 ### 9. 🎯 Cenário Completo de Teste
