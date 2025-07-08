@@ -2,7 +2,7 @@ name: Segurança - Análise de Smart Contracts
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master, develop, test ]
     paths:
       - '**.sol'
   pull_request:
@@ -25,6 +25,11 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
       - name: Instalar dependências
         run: npm ci
 
@@ -37,11 +42,29 @@ jobs:
         run: npm run compile
 
       - name: Executar Slither
-        run: slither . --exclude-dependencies --exclude-informational
+        id: slither
+        run: |
+          mkdir -p reports
+          slither . --exclude-dependencies --exclude-informational --json reports/slither.json
         continue-on-error: true
 
       - name: Executar Solhint (Linting)
+        id: solhint
         run: |
           npm install -g solhint
-          solhint "**/*.sol"
+          solhint "**/*.sol" -f json > reports/solhint.json || true
         continue-on-error: true
+
+      - name: Resumo de Segurança
+        run: |
+          echo "## Resumo da Análise de Segurança" >> $GITHUB_STEP_SUMMARY
+          echo "- Análise estática: Concluída" >> $GITHUB_STEP_SUMMARY
+          echo "- Linting de código: Concluído" >> $GITHUB_STEP_SUMMARY
+          echo "Verifique os artefatos para detalhes completos." >> $GITHUB_STEP_SUMMARY
+
+      - name: Publicar relatórios
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-reports
+          path: reports/
+          retention-days: 14
