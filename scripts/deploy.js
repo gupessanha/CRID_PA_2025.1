@@ -42,13 +42,18 @@ async function main() {
     blockNumber: await hre.ethers.provider.getBlockNumber()
   };
 
+  // Salvar em deployed-contracts.json para retrocompatibilidade
   const fs = require('fs');
   fs.writeFileSync(
     'deployed-contracts.json', 
     JSON.stringify(deployInfo, null, 2)
   );
+  
+  // Usar a nova função para salvar os contratos no formato estruturado
+  const { saveDeployedContracts } = require('./utils');
+  await saveDeployedContracts(deployInfo.contracts);
 
-  console.log("\n📄 Informações de deploy salvas em deployed-contracts.json");
+  console.log("\n📄 Informações de deploy salvas em deployed-contracts.json e na pasta deployments");
 
   // Verificar contratos se estivermos em uma testnet
   if (hre.network.name !== "localhost" && hre.network.name !== "hardhat") {

@@ -1,0 +1,42 @@
+name: CI - Sistema de Notas Smart Contract
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  test:
+    name: Testes e Verificação do Contrato
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Verificar formatação do código Solidity
+        run: npx prettier --check '**/*.sol'
+        continue-on-error: true
+
+      - name: Compilar contratos
+        run: npm run compile
+
+      - name: Executar testes
+        run: npm test
+
+      - name: Verificar cobertura de código
+        run: npm run coverage
+        continue-on-error: true
+
+      - name: Analisar tamanho dos contratos
+        run: npm run size

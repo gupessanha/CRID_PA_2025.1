@@ -1,0 +1,47 @@
+name: Segurança - Análise de Smart Contracts
+
+on:
+  push:
+    branches: [ main, master, develop ]
+    paths:
+      - '**.sol'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - '**.sol'
+  workflow_dispatch:
+
+jobs:
+  security-scan:
+    name: Verificação de Segurança
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Instalar Slither
+        run: |
+          python -m pip install --upgrade pip
+          pip install slither-analyzer
+
+      - name: Compilar contratos
+        run: npm run compile
+
+      - name: Executar Slither
+        run: slither . --exclude-dependencies --exclude-informational
+        continue-on-error: true
+
+      - name: Executar Solhint (Linting)
+        run: |
+          npm install -g solhint
+          solhint "**/*.sol"
+        continue-on-error: true

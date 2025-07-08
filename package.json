@@ -12,7 +12,12 @@
     "console": "npx hardhat console",
     "clean": "npx hardhat clean",
     "size": "npx hardhat size-contracts",
-    "coverage": "npx hardhat coverage"
+    "coverage": "npx hardhat coverage",
+    "lint": "npx solhint '**/*.sol'",
+    "lint:fix": "npx solhint --fix '**/*.sol'",
+    "format": "npx prettier --write '**/*.{sol,js,json,md}'",
+    "format:check": "npx prettier --check '**/*.{sol,js,json,md}'",
+    "security": "npx hardhat compile && slither . --exclude-dependencies --exclude-informational"
   },
   "keywords": [
     "blockchain",
@@ -30,6 +35,9 @@
     "@openzeppelin/contracts": "^5.0.0",
     "hardhat": "^2.19.0",
     "hardhat-gas-reporter": "^1.0.9",
+    "prettier": "^2.8.8",
+    "prettier-plugin-solidity": "^1.1.3",
+    "solhint": "^3.6.2",
     "solidity-coverage": "^0.8.5"
   },
   "engines": {
