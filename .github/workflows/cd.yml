@@ -46,7 +46,7 @@ jobs:
 
       - name: Upload relatório de deploy
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Atualizado de v3 para v4
         with:
           name: deployment-report
           path: deployment-report.md
