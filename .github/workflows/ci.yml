@@ -1,0 +1,77 @@
+name: CI - Testes do Sistema de Notas
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    #branches: [ main, master ]
+
+jobs:
+  test:
+    name: Compilar e Testar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Verificar instalação de dependências
+        run: |
+          echo "Versão do Hardhat:"
+          npx hardhat --version
+          echo "Listando dependências instaladas:"
+          npm list --depth=0
+
+      - name: Compilar contratos
+        run: npx hardhat compile
+
+      - name: Executar testes
+        run: node scripts/run-tests.js
+
+      # Substitua o comando size pelo script personalizado
+      - name: Verificar tamanho dos contratos
+        run: node scripts/check-contract-size.js
+
+      # Criar o diretório antes de tentar escrever nele
+      - name: Criar diretório para relatórios
+        run: mkdir -p test-results
+
+      - name: Gerar relatório de testes
+        if: always()
+        run: |
+          echo "# Relatório de Testes" > test-results/test-report.md
+          echo "Data: $(date)" >> test-results/test-report.md
+          echo "Commit: ${{ github.sha }}" >> test-results/test-report.md
+          
+          # Adicionar resultados dos testes, se disponíveis
+          if [ -f "test-results/solidity-test-results.json" ]; then
+            echo "## Resultados dos Testes Solidity" >> test-results/test-report.md
+            echo '```json' >> test-results/test-report.md
+            cat test-results/solidity-test-results.json >> test-results/test-report.md
+            echo '```' >> test-results/test-report.md
+          fi
+          
+          # Adicionar informações sobre tamanho dos contratos
+          if [ -f "test-results/contract-sizes.json" ]; then
+            echo "## Tamanho dos Contratos" >> test-results/test-report.md
+            echo '```json' >> test-results/test-report.md
+            cat test-results/contract-sizes.json >> test-results/test-report.md
+            echo '```' >> test-results/test-report.md
+          fi
+
+      - name: Upload relatório de testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+

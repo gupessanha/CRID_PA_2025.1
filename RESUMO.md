@@ -5,7 +5,7 @@
 ### 📜 Contratos Principais
 1. **`crid.sol`** - Contrato principal do sistema de notas
 2. **`TesteSistemaNotas.sol`** - Contrato para testes automatizados
-3. **`ExemploPraticoSistema.sol`** - Exemplo prático de uso completo
+3. **`ExemploUltraSimplificado.sol`** - Exemplo prático simplificado para uso no Remix
 
 ### 📚 Documentação
 4. **`README.md`** - Documentação completa do projeto

@@ -36,9 +36,6 @@ npm run clean
 # Relatório de uso de gas
 REPORT_GAS=true npm run test
 
-# Análise de cobertura de testes
-npm run coverage
-
 # Tamanho dos contratos
 npm run size
 ```

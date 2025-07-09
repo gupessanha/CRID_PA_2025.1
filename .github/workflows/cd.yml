@@ -1,0 +1,77 @@
+name: CD - Deploy Sistema de Notas (Teste)
+
+on:
+  push:
+    branches: [ main, master ]
+
+
+    #tags:
+    #  - 'v*'
+    # Para implantação final, descomente as linhas acima
+
+jobs:
+  deploy-testnet:
+    name: Deploy na Testnet (Simulado)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4  # Atualizado de v3 para v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4  # Atualizado de v3 para v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Compilar contratos
+        run: npm run compile
+
+      - name: Deploy na Testnet (Teste)
+        run: |
+          echo "AVISO: Este é um deploy simulado sem conexão real à rede"
+          echo "Criando diretório para resultados simulados..."
+          mkdir -p test-results
+          
+          echo '{
+            "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
+            "network": "mock-sepolia",
+            "contracts": {
+              "SistemaNotas": "0x1111111111111111111111111111111111111111",
+              "AdminController": "0x2222222222222222222222222222222222222222"
+            },
+            "deployedBy": "0x9999999999999999999999999999999999999999",
+            "transactionHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+          }' > test-results/deploy-addresses.json
+          
+          echo "Deploy simulado concluído!"
+        # Sem env, pois não estamos usando secrets
+
+      - name: Criar diretório para relatórios
+        run: mkdir -p deployment-reports
+
+      - name: Criar relatório de deploy
+        if: success()
+        run: |
+          echo "# Relatório de Deploy" > deployment-reports/deployment-report.md
+          echo "Data: $(date)" >> deployment-reports/deployment-report.md
+          echo "Tag: ${GITHUB_REF#refs/tags/}" >> deployment-reports/deployment-report.md
+          echo "Commit: ${{ github.sha }}" >> deployment-reports/deployment-report.md
+          
+          # Adicionar endereços de contratos deployados se disponíveis
+          if [ -f "test-results/deploy-addresses.json" ]; then
+            echo "## Endereços dos Contratos" >> deployment-reports/deployment-report.md
+            echo '```json' >> deployment-reports/deployment-report.md
+            cat test-results/deploy-addresses.json >> deployment-reports/deployment-report.md
+            echo '```' >> deployment-reports/deployment-report.md
+          fi
+
+      - name: Upload relatório de deploy
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-report
+          path: deployment-reports/
