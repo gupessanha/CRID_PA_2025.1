@@ -2,9 +2,12 @@ name: CD - Deploy Sistema de Notas (Teste)
 
 on:
   push:
-    #branches: [ main, master, test ]
+    branches: [ main, master ]
+
+
     #tags:
     #  - 'v*'
+    # Para implantação final, descomente as linhas acima
 
 jobs:
   deploy-testnet:

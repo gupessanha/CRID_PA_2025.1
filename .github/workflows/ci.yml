@@ -2,7 +2,7 @@ name: CI - Testes do Sistema de Notas
 
 on:
   push:
-    #branches: [ main, master ]
+    branches: [ main, master ]
   pull_request:
     #branches: [ main, master ]
 

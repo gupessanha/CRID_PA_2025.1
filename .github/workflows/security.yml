@@ -1,12 +1,11 @@
-name: Segurança - Análise de Smart Contracts
+name: Segurança - Análise de Smart Contracts(teste)
 
 on:
   push:
-    branches: [ main, master, develop, test ]
-    
-  pull_request:
-    branches: [ main, master ]
-    
+    branches: [ main, master, develop]
+
+    # "Patch" retirado para teste
+
   workflow_dispatch:
 
 jobs:
