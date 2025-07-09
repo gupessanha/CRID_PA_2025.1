@@ -60,7 +60,7 @@ jobs:
           echo "Verifique os artefatos para detalhes completos." >> $GITHUB_STEP_SUMMARY
 
       - name: Publicar relatórios
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Atualizado de v3 para v4
         with:
           name: security-reports
           path: reports/
